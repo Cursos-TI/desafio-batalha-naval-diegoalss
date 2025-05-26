@@ -1,51 +1,71 @@
 #include <stdio.h>
-
-// Desafio Batalha Naval - MateCheck
+// Desafio Batalha Naval 
 int main() {
-    // Tabuleiro 10x10 inicializado 
+    // Tabuleiro 
     int tabuleiro[10][10] = {0};
+    
+    // Tamanho fixo dos navios
+    int tamanho = 3;
 
-    // Navios com tamanho fixo 3
-    int navio_horizontal[3] = {3, 3, 3};
-    int navio_vertical[3] = {3, 3, 3};
+    // Coordenadas iniciais dos navios
+    int linha_h = 2, coluna_h = 4;       // Horizontal
+    int linha_v = 5, coluna_v = 1;       // Vertical
+    int linha_d1 = 0, coluna_d1 = 0;     // Diagonal ↘
+    int linha_d2 = 2, coluna_d2 = 9;     // Diagonal ↙
 
-    // Coordenadas iniciais
-    int linha_h = 2;
-    int coluna_h = 4;
-    int linha_v = 5;
-    int coluna_v = 1;
-
-    // Verificação de limites e posicionamento do navio horizontal
-    if (coluna_h + 3 <= 10) {
-        for (int i = 0; i < 3; i++) {
-            if (tabuleiro[linha_h][coluna_h + i] == 3) {
-                return 1;
-            }
-            tabuleiro[linha_h][coluna_h + i] = navio_horizontal[i];
-        }
-    } else {
-        return 1; 
-    }
-
-    // Verificação de limites e posicionamento do navio vertical
-    if (linha_v + 3 <= 10) {
-        for (int i = 0; i < 3; i++) {
-            if (tabuleiro[linha_v + i][coluna_v] == 3) {
-                return 1; 
-            }
-            tabuleiro[linha_v + i][coluna_v] = navio_vertical[i];
+    // Posicionamento horizontal
+    if (coluna_h + tamanho <= 10) {
+        for (int i = 0; i < tamanho; i++) {
+            if (tabuleiro[linha_h][coluna_h + i] == 3) return 1;
+            tabuleiro[linha_h][coluna_h + i] = 3;
         }
     } else {
         return 1;
     }
 
-    // Exibição do tabuleiro
+    // Posicionamento vertical
+    if (linha_v + tamanho <= 10) {
+        for (int i = 0; i < tamanho; i++) {
+            if (tabuleiro[linha_v + i][coluna_v] == 3) return 1;
+            tabuleiro[linha_v + i][coluna_v] = 3;
+        }
+    } else {
+        return 1;
+    }
+
+    // Posicionamento diagonal ↘
+    if (linha_d1 + tamanho <= 10 && coluna_d1 + tamanho <= 10) {
+        for (int i = 0; i < tamanho; i++) {
+            if (tabuleiro[linha_d1 + i][coluna_d1 + i] == 3) return 1;
+            tabuleiro[linha_d1 + i][coluna_d1 + i] = 3;
+        }
+    } else {
+        return 1;
+    }
+
+    // Posicionamento diagonal ↙
+    if (linha_d2 + tamanho <= 10 && coluna_d2 - (tamanho - 1) >= 0) {
+        for (int i = 0; i < tamanho; i++) {
+            if (tabuleiro[linha_d2 + i][coluna_d2 - i] == 3) return 1;
+            tabuleiro[linha_d2 + i][coluna_d2 - i] = 3;
+        }
+    } else {
+        return 1;
+    }
+
+    // Exibição do tabuleiro 10x10
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             printf("%d ", tabuleiro[i][j]);
         }
         printf("\n");
     }
+
+    return 0;
+}
+
+
+
 
 
     // Nível Novato - Posicionamento dos Navios
@@ -79,5 +99,4 @@ int main() {
     // 1 1 1 1 1
     // 0 0 1 0 0
 
-    return 0;
-}
+ 
